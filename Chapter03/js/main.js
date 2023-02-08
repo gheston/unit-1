@@ -1,42 +1,32 @@
-// Geog 575 Unit 1, Chapter 2
-// Gerald Heston
-// 4 Feb 2023
+// Geog 575 Premodule , Chapter 3
+// 6 Feb 2023
 
-//Example 2.1, 2,2
-function myFunc() {
-    var myDiv =  document.getElementById("mydiv");
-    myDiv.innerHTML = "Hello World";
-};
-
-window.onload = myFunc();
-
-//example 2.3
-
+// functions copied from excample 2.4
 //initialize function called when the script loads
 function initialize(){
     cities();
 };
 
-//initialize function called when the script loads
-function initializeCats(){
-    cats();
-};
-
 //function to create a table with cities and their populations
 function cities(){
     //define two arrays for cities and population
-    var cities = [
-        'Madison',
-        'Milwaukee',
-        'Green Bay',
-        'Superior'
-    ];
-    var population = [
-        233209,
-        594833,
-        104057,
-        27244
-    ];
+    var cityPop = [
+    { 
+        city: 'Madison',
+        population: 233209
+    },
+    {
+        city: 'Milwaukee',
+        population: 594833
+    },
+    {
+        city: 'Green Bay',
+        population: 104057
+    },
+    {
+        city: 'Superior',
+        population: 27244
+    }]
 
     //create the table element
     var table = document.createElement("table");
@@ -44,594 +34,99 @@ function cities(){
     //create a header row
     var headerRow = document.createElement("tr");
 
-    //add the "City" column
-    var cityHeader = document.createElement("th");
-    cityHeader.innerHTML = "City";
-    headerRow.appendChild(cityHeader);
-
-    //add the "Population" column
-    var popHeader = document.createElement("th");
-    popHeader.innerHTML = "Population";
-    headerRow.appendChild(popHeader);
+    //add the "City" and "Population" columns to the header row
+    headerRow.insertAdjacentHTML("beforeend","<th>City</th><th>Population</th>")
 
     //add the row to the table
     table.appendChild(headerRow);
 
     //loop to add a new row for each city
-    for (var i = 0; i < cities.length; i++){
-        var tr = document.createElement("tr");
+    for(var i = 0; i < cityPop.length; i++){
+        //assign longer html strings to a variable
+        var rowHtml = "<tr><td>" + cityPop[i].city + "</td><td>" + cityPop[i].population + "</td></tr>";
+        //add the row's html string to the table
+        table.insertAdjacentHTML('beforeend',rowHtml);
+    }
 
-        var city = document.createElement("td");
-        city.innerHTML = cities[i];
-        tr.appendChild(city);
+    document.querySelector("#mydiv").appendChild(table);
+}
 
-        var pop = document.createElement("td");
-        pop.innerHTML = population[i];
-        tr.appendChild(pop);
-
-        table.appendChild(tr);
-    }; 
-
-    //add the table to the div in index.html
-    var myDiv =  document.getElementById("mydiv");
-    myDiv.appendChild(table);
-};
+document.addEventListener('DOMContentLoaded',initialize)
 
 
-
-// function cats() {
-//     //create arrays for Heston cats
-//     var cats = ["Oberon", "Chloe 2.0", "Lola", "Peppa", "Gibson", "Pele (honorary cat)"];
-//     var humans = ["Gerald", "Debbie", "Debbie", "Holly and Paul", "Alan and Sue", "Claire and Erik"];
-
-
-//     // create a table element for Heston cats
-//     var catTable = document.createElement("table");
-
-//     // create a header row
-//     var catHeaderRow = document.createElement("tr");
-
-//     // add the cat name column
-//     var catHeader = document.createElement("th");
-//     catHeader.innerHTML = "Cat Name";
-//     catHeaderRow.appendChild(catHeader);
-
-//     //add the human name column
-//     var humanHeader = document.createElement("th");
-//     humanHeader.innerHTML = "Human Name";
-//     catHeaderRow.appendChild(humanHeader);
-
-//     //add the row to the table
-//     catTable.appendChild(catHeaderRow);
-
-//     // loop to add a new row for each cat
-//     for (var i = 0; i < cats.length; i++) {
-//         var tr = document.createElement("tr");
-
-//         var cat = document.createElement("td");
-//         cat.innerHTML = cats[i];
-//         tr.appendChild(cat);
-
-//         var human = document.createElement("td");
-//         human.innerHTML = humans[i];
-//         tr.appendChild(human);
-
-//         catTable.appendChild(tr);
-//     };
-
-//     // add the table to the div2 in index.html
-//     var myDiv2 = document.getElementById("mydiv2");
-//     myDiv2.appendChild(catTable);
+// //Example 3.3
+// function jsAjax(){
+ 
+//     fetch('data/MegaCities.geojson')
+//      .then(function(response) {
+//          return response.json();
+//         }) // Step 4 convert data to usable form
+//         .then(callback) //step 5 send retrieved data to a callback function
 // };
 
+// //Example 3.4
+// //define callback function
+// function callback(response){
+//     var myData = response;
 
+//     //pass data to another function
+//     nextFunction(myData);
 
-// cats v2 - using one array instead of 2 Example 2.4
-// function cats() {
-//     //defnie an array of objects for cities and population
-//     var catHuman = [
-//         {
-//             cat: 'Oberon',
-//             human: 'Gerald'
-//         },
-//         {
-//             cat: 'Chloe 2 and Lola',
-//             human: 'Debbie'
-//         },
-//         {
-//             cat: 'Gibson',
-//             human: 'Alan and Sue'
-//         },
-//         {
-//             cat: 'Peppa',
-//             human: 'Holly and Paul'
-//         },
-//         {
-//             cat: 'Pele (honorary cat)',
-//             human: 'Claire and Erik'
-//         }
+// };
 
-//     ];
-
-//     //create a table element for Heston cats
-//     var catTable = document.createElement("table");
-
-//     // create a header row
-//     var catHeaderRow = document.createElement("tr");
-
-//     // add the cat name column
-//     var catHeader = document.createElement("th");
-//     catHeader.innerHTML = "Cat Name";
-//     catHeaderRow.appendChild(catHeader);
-
-//     //add the human name column
-//     var humanHeader = document.createElement("th");
-//     humanHeader.innerHTML = "Human Name";
-//     catHeaderRow.appendChild(humanHeader);
-
-//     //add the row to the table
-//     catTable.appendChild(catHeaderRow);
-
-
-//     for (var i = 0; i < catHuman.length; i++) {
-//         var tr = document.createElement("tr");
-
-//         var cat = document.createElement("td");
-//         cat.innerHTML = catHuman[i].cat;
-//         tr.appendChild(cat);
-
-//         var human = document.createElement("td");
-//         human.innerHTML = catHuman[i].human;
-//         tr.appendChild(human);
-
-//         catTable.appendChild(tr);
-//     }
-//     //     add the table to the div2 in index.html
-//     var myDiv2 = document.getElementById("mydiv2");
-//     myDiv2.appendChild(catTable);
-
+// function nextFunction(data){
+//     console.log(data); // contains response data held by myData in callback
 // }
 
-// cats v3 Example 2.5 - long form creation of array
-// function cats() {
-//     //defnie an array of objects for cities and population
-//     var catHuman = [];
+// window.onload = jsAjax();
 
-//     //create the first cat object
-//     var oberon = {};
-//     //add each property to the object
-//     oberon.cat = 'Oberon';
-//     oberon.human = 'Gerald';
+//example 3.6
+// function jsAjax35(){
+//     //define a variable to hold the data
+//     var myData;
 
-//     //push the city object into the array
-//     catHuman.push(oberon);
+//     //basic fetch
+//     fetch('data/MegaCities.geojson')
+//         .then(function(response){
+//             return response.json();
+//         }) 
+//         .then(function(response){
+//             myData = response;
 
-//     //create the first cat object
-//     var chloe = {};
-//     //add each property to the object
-//     chloe.cat = 'Chloe 2 and Lola';
-//     chloe.human = 'Debbie';
+//              //check the data
+//              console.log(myData) //data can be accessed here
+//         }) 
 
-//     //push the city object into the array
-//     catHuman.push(chloe);
+//     //check the data
+//     console.log(myData) // data can't be accessed here - not within the anonymous callback function - undefined
+// };
 
-//     //create the first cat object
-//     var peppa = {};
-//     //add each property to the object
-//     peppa.cat = 'Peppa';
-//     peppa.human = 'Holly and Paul';
+// document.addEventListener('DOMContentLoaded',jsAjax35)
 
-//     //push the city object into the array
-//     catHuman.push(peppa);
+// Activity 4 - debug AJAX
+function debugCallback(response){
+    //console.log(response);
+	document.querySelector("#mydiv").insertAdjacentHTML('beforeend', 'GeoJSON data: ' + JSON.stringify(response)); //changed myData to response because 'myData' was only defined in the debugAjax() function, but it was passed to debugCallback() as the local variable response
+};
 
-//     //create the first cat object
-//     var gibson = {};
-//     //add each property to the object
-//     gibson.cat = 'Gibson';
-//     gibson.human = 'Aland and Sue';
-
-//     //push the city object into the array
-//     catHuman.push(gibson);
-
-//     //create the first cat object
-//     var pele = {};
-//     //add each property to the object
-//     pele.cat = 'Pele (honorary cat)';
-//     pele.human = 'Claire and Erik';
-
-//     //push the city object into the array
-//     catHuman.push(pele);
-
-//     //create a table element for Heston cats
-//     var catTable = document.createElement("table");
-
-//     // create a header row
-//     var catHeaderRow = document.createElement("tr");
-
-//     // add the cat name column
-//     var catHeader = document.createElement("th");
-//     catHeader.innerHTML = "Cat Name";
-//     catHeaderRow.appendChild(catHeader);
-
-//     //add the human name column
-//     var humanHeader = document.createElement("th");
-//     humanHeader.innerHTML = "Human Name";
-//     catHeaderRow.appendChild(humanHeader);
-
-//     //add the row to the table
-//     catTable.appendChild(catHeaderRow);
-
-
-//     for (var i = 0; i < catHuman.length; i++) {
-//         var tr = document.createElement("tr");
-
-//         var cat = document.createElement("td");
-//         cat.innerHTML = catHuman[i].cat;
-//         tr.appendChild(cat);
-
-//         var human = document.createElement("td");
-//         human.innerHTML = catHuman[i].human;
-//         tr.appendChild(human);
-
-//         catTable.appendChild(tr);
-//     }
-//     //     add the table to the div2 in index.html
-//     var myDiv2 = document.getElementById("mydiv2");
-//     myDiv2.appendChild(catTable);
-
-// }
-
-
-//cats v4 - using one array instead of 2 Example 2.6, while loop
-// function cats() {
-//     //defnie an array of objects for cities and population
-//     var catHuman = [
-//         {
-//             cat: 'Oberon',
-//             human: 'Gerald'
-//         },
-//         {
-//             cat: 'Chloe 2 and Lola',
-//             human: 'Debbie'
-//         },
-//         {
-//             cat: 'Gibson',
-//             human: 'Alan and Sue'
-//         },
-//         {
-//             cat: 'Peppa',
-//             human: 'Holly and Paul'
-//         },
-//         {
-//             cat: 'Pele (honorary cat)',
-//             human: 'Claire and Erik'
-//         }
-
-//     ];
-
-//     //create a table element for Heston cats
-//     var catTable = document.createElement("table");
-
-//     // create a header row
-//     var catHeaderRow = document.createElement("tr");
-
-//     // add the cat name column
-//     var catHeader = document.createElement("th");
-//     catHeader.innerHTML = "Cat Name";
-//     catHeaderRow.appendChild(catHeader);
-
-//     //add the human name column
-//     var humanHeader = document.createElement("th");
-//     humanHeader.innerHTML = "Human Name";
-//     catHeaderRow.appendChild(humanHeader);
-
-//     //add the row to the table
-//     catTable.appendChild(catHeaderRow);
-
-
-//     var i = 0;
-//     while (i < catHuman.length) {
-//         var tr = document.createElement("tr");
+function debugAjax(){
+	
+	var myData;
+	
+	fetch("data/MegaCities.geojson")
+        .then(function(response) {
+            return response.json(); //added this line to parse the response using json to make the object useful
+        })
+        .then(function(response){ // added these 2 lines to assign the response to myData
+            myData = response; 
+       
+            document.querySelector("#mydiv").insertAdjacentHTML('beforeend', '<br>GeoJSON data:<br>' + JSON.stringify(myData)); //needed a , after 'beforeend'; moved this line to inside the anonymous function with myData so it would be defined
         
-//         var cat = document.createElement("td");
-//         cat.innerHTML = catHuman[i].cat;
-//         tr.appendChild(cat);
+            debugCallback(myData); //moved this line inside the anonmymous function with myData so it would be defined
+        })
+};
 
-//         var human = document.createElement("td");
-//         human.innerHTML = catHuman[i].human;
-//         tr.appendChild(human);
+document.addEventListener('DOMContentLoaded',debugAjax); // needs a line to call the function to make things happen
 
-//         catTable.appendChild(tr);
-        
-//         //increment counter
-//         i++;
-//     }
-
-//     //     add the table to the div2 in index.html
-//     var myDiv2 = document.getElementById("mydiv2");
-//     myDiv2.appendChild(catTable);
-
-// }
-
-//cats v5 - using one array instead of 2 Example 2.6, for each loop
-// function cats() {
-//     //defnie an array of objects for cities and population
-//     var catHuman = [
-//         {
-//             cat: 'Oberon',
-//             human: 'Gerald'
-//         },
-//         {
-//             cat: 'Chloe 2 and Lola',
-//             human: 'Debbie'
-//         },
-//         {
-//             cat: 'Gibson',
-//             human: 'Alan and Sue'
-//         },
-//         {
-//             cat: 'Peppa',
-//             human: 'Holly and Paul'
-//         },
-//         {
-//             cat: 'Pele (honorary cat)',
-//             human: 'Claire and Erik'
-//         }
-
-//     ];
-
-//     //create a table element for Heston cats
-//     var catTable = document.createElement("table");
-
-//     // create a header row
-//     var catHeaderRow = document.createElement("tr");
-
-//     // add the cat name column
-//     var catHeader = document.createElement("th");
-//     catHeader.innerHTML = "Cat Name";
-//     catHeaderRow.appendChild(catHeader);
-
-//     //add the human name column
-//     var humanHeader = document.createElement("th");
-//     humanHeader.innerHTML = "Human Name";
-//     catHeaderRow.appendChild(humanHeader);
-
-//     //add the row to the table
-//     catTable.appendChild(catHeaderRow);
-
-
-//     catHuman.forEach(function(catObject){
-//         var tr = document.createElement("tr");
-        
-//         var cat = document.createElement("td");
-//         cat.innerHTML = catObject.cat;
-//         tr.appendChild(cat);
-
-//         var human = document.createElement("td");
-//         human.innerHTML = catObject.human;
-//         tr.appendChild(human);
-
-//         catTable.appendChild(tr);
-//     });
-
-//     //     add the table to the div2 in index.html
-//     var myDiv2 = document.getElementById("mydiv2");
-//     myDiv2.appendChild(catTable);
-
-// }
-
-//cats v6 - using one array instead of 2 Example 2.6, for each loop with object for loop
-// function cats() {
-//     //defnie an array of objects for cities and population
-//     var catHuman = [
-//         {
-//             cat: 'Oberon',
-//             human: 'Gerald'
-//         },
-//         {
-//             cat: 'Chloe 2 and Lola',
-//             human: 'Debbie'
-//         },
-//         {
-//             cat: 'Gibson',
-//             human: 'Alan and Sue'
-//         },
-//         {
-//             cat: 'Peppa',
-//             human: 'Holly and Paul'
-//         },
-//         {
-//             cat: 'Pele (honorary cat)',
-//             human: 'Claire and Erik'
-//         }
-
-//     ];
-
-//     //create a table element for Heston cats
-//     var catTable = document.createElement("table");
-
-//     // create a header row
-//     var catHeaderRow = document.createElement("tr");
-
-//     // add the cat name column
-//     var catHeader = document.createElement("th");
-//     catHeader.innerHTML = "Cat Name";
-//     catHeaderRow.appendChild(catHeader);
-
-//     //add the human name column
-//     var humanHeader = document.createElement("th");
-//     humanHeader.innerHTML = "Human Name";
-//     catHeaderRow.appendChild(humanHeader);
-
-//     //add the row to the table
-//     catTable.appendChild(catHeaderRow);
-
-
-//     catHuman.forEach(function(catObject){
-//         var tr = document.createElement("tr");
-        
-//         for (var property in catObject) {
-//             var td = document.createElement("td");
-//             td.innerHTML = catObject[property];
-//             tr.appendChild(td);
-//         }
-
-//         // var cat = document.createElement("td");
-//         // cat.innerHTML = catObject.cat;
-//         // tr.appendChild(cat);
-
-//         // var human = document.createElement("td");
-//         // human.innerHTML = catObject.human;
-//         // tr.appendChild(human);
-
-//         catTable.appendChild(tr);
-//     });
-
-//     //     add the table to the div2 in index.html
-//     var myDiv2 = document.getElementById("mydiv2");
-//     myDiv2.appendChild(catTable);
-
-// }
-
-// cats v7 - using one array instead of 2 Example 2.7, with conditionals
-function cats() {
-    //defnie an array of objects for cities and population
-    var catHuman = [
-        {
-            cat: 'Oberon',
-            human: 1971
-        },
-        {
-            cat: 'Chloe 2 and Lola',
-            human: 1956
-        },
-        {
-            cat: 'Gibson',
-            human: 1958
-        },
-        {
-            cat: 'Peppa',
-            human: 1960
-        },
-        {
-            cat: 'Pele (honorary cat)',
-            human: 1991
-        }
-
-    ];
-
-    //create a table element for Heston cats
-    var catTable = document.createElement("table");
-
-    // create a header row
-    var catHeaderRow = document.createElement("tr");
-
-    // add the cat name column
-    var catHeader = document.createElement("th");
-    catHeader.innerHTML = "Cat Name";
-    catHeaderRow.appendChild(catHeader);
-
-    //add the human name column
-    var humanHeader = document.createElement("th");
-    humanHeader.innerHTML = "Human Name";
-    catHeaderRow.appendChild(humanHeader);
-
-    //add the row to the table
-    catTable.appendChild(catHeaderRow);
-
-
-    for (var i = 0; i < catHuman.length; i++) {
-        var tr = document.createElement("tr");
-
-        var cat = document.createElement("td");
-        if (catHuman[i].cat == 'Oberon') {
-            cat.innerHTML = 'Obie';
-        } else if (catHuman[i].cat == 'Gibson') {
-            cat.innerHTML = 'Gibsy';
-        } else {
-            cat.innerHTML = catHuman[i].cat;
-        }
-        
-        tr.appendChild(cat);
-        
-        var human = document.createElement("td");
-
-        if (catHuman[i].human > 1965) {
-            human.innerHTML = catHuman[i].human;
-        } else {
-            human.innerHTML = 'retired!';
-        };
-
-        tr.appendChild(human);
-        
-        catTable.appendChild(tr);
-    }
-    //     add the table to the div2 in index.html
-    document.querySelector("#mydiv2").appendChild(catTable);
-
-
-}
-
-
-// cats v8 - using one array instead of 2 Example 3.4
-function cats() {
-    //defnie an array of objects for cities and population
-    var catHuman = [
-        {
-            cat: 'Oberon',
-            human: 'Gerald'
-        },
-        {
-            cat: 'Chloe 2 and Lola',
-            human: 'Debbie'
-        },
-        {
-            cat: 'Gibson',
-            human: "Alan and Sue"
-        },
-        {
-            cat: 'Peppa',
-            human: "Holly and Paul"
-        },
-        {
-            cat: 'Pele (honorary cat)',
-            human: "Claire and Erik"
-        }
-
-    ];
-
-    //create a table element for Heston cats
-    var catTable = document.createElement("table");
-
-    // create a header row
-    var catHeaderRow = document.createElement("tr");
-
-//add the 'Cat' and Human" header columns to the header row
-    catHeaderRow.insertAdjacentHTML("beforeend", "<th>Cat Name</th><th>Human Name</th>");
-
-    //add the row to the table
-    catTable.appendChild(catHeaderRow);
-
-
-    //loop to add a new row for each cat
-
-    for (var i = 0; i< catHuman.length; i++) {
-        //assign longer html strings to a variable
-        var rowHtml = "<tr><td>" + catHuman[i].cat + "</td><td>" + catHuman[i].human + "</td></tr>";
-        //add the row's heml string to the table
-        catTable.insertAdjacentHTML('beforeend', rowHtml);
-    }
-
-    for (var i = 0; i < catHuman.length; i++) 
-    //     add the table to the div2 in index.html
-    document.querySelector("#mydiv2").appendChild(catTable);
-    
-    document.querySelector("#mydiv2").style.color = 'red';
-
-}
-//call the initialize function when the window has loaded
-window.onload = initialize();
-
-document.addEventListener('DOMContentLoaded', initializeCats);
-
-
+//this line won't work because myData only exists within the debugAjax function call, here it's undefined
+//document.querySelector("#mydiv").insertAdjacentHTML('beforeend', 'GeoJSON data: ' + JSON.stringify(myData)) 
