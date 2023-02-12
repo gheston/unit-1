@@ -148,3 +148,5 @@ function addEvents(){
 document.addEventListener('DOMContentLoaded', initialize);
 document.addEventListener('DOMContentLoaded', initializeAddColumns);
 document.addEventListener('DOMContentLoaded', initializeAddEvents);
+
+

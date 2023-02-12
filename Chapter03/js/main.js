@@ -103,30 +103,51 @@ document.addEventListener('DOMContentLoaded',initialize)
 
 // document.addEventListener('DOMContentLoaded',jsAjax35)
 
+// // Activity 4 - debug AJAX - Gerald's answer
+// function debugCallback(response){
+//     //console.log(response);
+// 	document.querySelector("#mydiv").insertAdjacentHTML('beforeend', 'GeoJSON data: ' + JSON.stringify(response)); //changed myData to response because 'myData' was only defined in the debugAjax() function, but it was passed to debugCallback() as the local variable response
+// };
+
+// function debugAjax(){
+	
+// 	var myData;
+	
+// 	fetch("data/MegaCities.geojson")
+//         .then(function(response) {
+//             return response.json(); //added this line to parse the response using json to make the object useful
+//         })
+//         .then(function(response){ // added these 2 lines to assign the response to myData
+//             myData = response; 
+       
+//             document.querySelector("#mydiv").insertAdjacentHTML('beforeend', '<br>GeoJSON data:<br>' + JSON.stringify(myData)); //needed a , after 'beforeend'; moved this line to inside the anonymous function with myData so it would be defined
+        
+//             debugCallback(myData); //moved this line inside the anonmymous function with myData so it would be defined
+//         })
+// };
+
+// document.addEventListener('DOMContentLoaded',debugAjax); // needs a line to call the function to make things happen
+
+// //this line won't work because myData only exists within the debugAjax function call, here it's undefined
+// //document.querySelector("#mydiv").insertAdjacentHTML('beforeend', 'GeoJSON data: ' + JSON.stringify(myData)) 
+
+// more consice option suggested by Instructor John Nelson:
 // Activity 4 - debug AJAX
 function debugCallback(response){
-    //console.log(response);
-	document.querySelector("#mydiv").insertAdjacentHTML('beforeend', 'GeoJSON data: ' + JSON.stringify(response)); //changed myData to response because 'myData' was only defined in the debugAjax() function, but it was passed to debugCallback() as the local variable response
+	
+    var myData = response;
+
+	document.querySelector("#mydiv").insertAdjacentHTML('beforeend', 'GeoJSON data: ' + JSON.stringify(myData)); //changed myData to response because 'myData' was only defined in the debugAjax() function, but it was passed to debugCallback() as the local variable response
 };
 
 function debugAjax(){
-	
-	var myData;
 	
 	fetch("data/MegaCities.geojson")
         .then(function(response) {
             return response.json(); //added this line to parse the response using json to make the object useful
         })
-        .then(function(response){ // added these 2 lines to assign the response to myData
-            myData = response; 
-       
-            document.querySelector("#mydiv").insertAdjacentHTML('beforeend', '<br>GeoJSON data:<br>' + JSON.stringify(myData)); //needed a , after 'beforeend'; moved this line to inside the anonymous function with myData so it would be defined
-        
-            debugCallback(myData); //moved this line inside the anonmymous function with myData so it would be defined
-        })
+        .then(debugCallback) //moved this line inside the anonmymous function with myData so it would be defined
+
 };
 
 document.addEventListener('DOMContentLoaded',debugAjax); // needs a line to call the function to make things happen
-
-//this line won't work because myData only exists within the debugAjax function call, here it's undefined
-//document.querySelector("#mydiv").insertAdjacentHTML('beforeend', 'GeoJSON data: ' + JSON.stringify(myData)) 

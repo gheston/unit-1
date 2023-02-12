@@ -145,6 +145,9 @@ function addEvents(){
 };
 
 //move this line to the end of the script - call the functions after the page DOM loads
-document.addEventListener('DOMContentLoaded', initialize);
-document.addEventListener('DOMContentLoaded', initializeAddColumns);
-document.addEventListener('DOMContentLoaded', initializeAddEvents);
+// document.addEventListener('DOMContentLoaded', initialize);
+// document.addEventListener('DOMContentLoaded', initializeAddColumns);
+// document.addEventListener('DOMContentLoaded', initializeAddEvents);
+
+//simpler version of the above 3 lines suggested by instructor
+document.addEventListener('DOMContentLoaded', function(){ initialize(); initializeAddColumns(); initializeAddEvents(); });
